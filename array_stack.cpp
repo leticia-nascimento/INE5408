@@ -92,7 +92,7 @@ void structures::ArrayStack<T>::push(const T& data) {
     contents[top_] = data;
 }
 
-//  retira dados do vedor
+//  retira dados do vetor
 
 template <typename T> 
 T structures::ArrayStack<T>::pop() {
@@ -116,7 +116,8 @@ template <typename T>
 T& structures::ArrayStack<T>::top() {
     if(empty()) 
         throw std::out_of_range("Pilha vazia.");
-            return (contents[top_]);    
+            
+    return (contents[top_]);    
 }
 
 //  retorna o tamanho da pilha
