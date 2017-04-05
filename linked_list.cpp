@@ -149,7 +149,7 @@ std::size_t structures::LinkedList<T>::size() const {
 //  inserir no fim
 
 template<typename T>
-void structures::LinkedList<T>::push_back() {
+void structures::LinkedList<T>::push_back(const T& data) {
     insert(data, size_ );
 }
 
@@ -174,7 +174,7 @@ void structures::LinkedList<T>::insert(const T& data, std::size_t index) {
 //  insere no começo
 
 template<typename T>
-void structures::LinkedList<T>::push_front() {
+void structures::LinkedList<T>::push_front(const T& data) {
     insert(data, 0);
 }
 
