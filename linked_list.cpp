@@ -237,14 +237,14 @@ T structures::LinkedList<T>::pop(std::size_t index) {
 //  retira o ultimo elemento
 
 template<typename T>
-T structures::LinkedList<T>::pop_back(std::size_t index) {
+T structures::LinkedList<T>::pop_back() {
     return pop(size_);
 }
 
 //  retira o primeiro elemento
 
 template<typename T>
-T structures::LinkedList<T>::pop_front(std::size_t index) {
+T structures::LinkedList<T>::pop_front() {
     return pop(0);
 }
 
