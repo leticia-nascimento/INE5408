@@ -257,7 +257,7 @@ void structures::LinkedList<T>::remove(const T& data) {
 
     std::size_t i = 0;
     Node* atual = head;
-    while (atual->(data) != data) {
+    while (atual->data() != data) {
         i++;
         atual = atual -> next();
     }
