@@ -229,7 +229,7 @@ T structures::LinkedList<T>::pop(std::size_t index) {
     retorno = atual -> data();
     delete(atual);
     size_--;
-   return retorno;
+    return retorno;
 }
 
 //  retira o ultimo elemento
@@ -274,7 +274,7 @@ bool structures::LinkedList<T>::contains(const T& data) const {
     }
     if (atual != nullptr)
         return 1;
-   return 0;
+    return 0;
 }
 
 //  retorna a posição de um dado específico
@@ -282,8 +282,7 @@ bool structures::LinkedList<T>::contains(const T& data) const {
 template<typename T>
 std::size_t structures::LinkedList<T>::find(const T& data) const {
     if (empty())
-        thr
- ow std::out_of_range("Lista vazia!");
+        throw std::out_of_range("Lista vazia!");
 
     if (!contains(data))
         throw std::out_of_range("Elemento inexistente.");
@@ -294,7 +293,7 @@ std::size_t structures::LinkedList<T>::find(const T& data) const {
         i++;
         atual = atual -> next();
     }
-   return i;
+    return i;
 }
 
 #endif
