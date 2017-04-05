@@ -257,7 +257,7 @@ void structures::LinkedList<T>::remove(const T& data) {
 
     std::size_t i = 0;
     Node* atual = head;
-    while (atual -> != data) {
+    while (atual->(data) != data) {
         i++;
         atual = atual -> next();
     }
@@ -270,7 +270,7 @@ template<typename T>
 bool structures::LinkedList<T>::contains(const T& data) const {
     std::size_t i = 0;
     Node* atual = head;
-    while (atual -> data() != data) {
+    while (atual->data() != data) {
         i++;
         atual = atual -> next();
     }
@@ -286,12 +286,12 @@ std::size_t structures::LinkedList<T>::find(const T& data) const {
     if (empty())
         throw std::out_of_range("Lista vazia!");
    
-    if (!contains())
+    if (!contains(data))
         throw std::out_of_range("Elemento inexistente.");
 
     std::size_t i = 0;
     Node* atual = head;
-    while (atual -> data() != data) {
+    while (atual->data() != data) {
         i++;
         atual = atual -> next();
     }
