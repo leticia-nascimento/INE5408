@@ -261,7 +261,7 @@ void structures::LinkedList<T>::remove(const T& data) {
         i++;
         atual = atual -> next();
     }
-    delete(find(data));
+    delete(atual);
 }
 
 //  verifica se a contém um dado específico
