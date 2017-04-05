@@ -80,6 +80,8 @@ namespace structures {
             return it;
         }
 
+        void delete_contents();
+
         Node* head{nullptr};
         std::size_t size_{0u};
 };
