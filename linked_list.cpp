@@ -252,7 +252,7 @@ T structures::LinkedList<T>::pop_front() {
 
 template<typename T>
 void structures::LinkedList<T>::remove(const T& data) {
-    if (!contains())
+    if (!contains(data))
         throw std::out_of_range("Elemento inexistente.");
 
     std::size_t i = 0;
