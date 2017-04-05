@@ -96,26 +96,40 @@ structures::LinkedList<T>::LinkedList():
     size_{0u}
 {}
 
+template<typename T>
+void LinkedList<T>::delete_contents() {
+    auto current = head;
+    while (current != nullptr) {
+        auto prev = current;
+        current = current -> next();
+        delete prev;
+    }
+}
+
 //  destrutor
 
 template<typename T>
 structures::LinkedList<T>::~LinkedList() {
-    Node *atual, *anterior;
-    atual = head;
-    while (atual != nullptr) {
-        anterior = atual;
-        atual = atual -> next();
-        delete anterior;
+    auto current = head;
+    while (current != nullptr) {
+        auto prev = current;
+        current = current -> next();
+        delete prev;
     }
-    size_ = 0u;
-    head = nullptr;
 }
 
 //  limpa lista
 
 template<typename T>
 void structures::LinkedList<T>::clear() {
-    ~LinkedList();
+    auto current = head;
+    while (current != nullptr) {
+        auto prev = current;
+        current = current -> next();
+        delete prev;
+    }
+    head = nullptr;
+    size_ = 0u;
 }
 
 //  verifica se a lista está vazia
@@ -135,7 +149,7 @@ std::size_t structures::LinkedList<T>::size() const {
 //  inserir no fim
 
 template<typename T>
-void structures::LinkedList<T>::push_back(const T& data) {
+void structures::LinkedList<T>::push_back() {
     insert(data, size_ );
 }
 
@@ -160,7 +174,7 @@ void structures::LinkedList<T>::insert(const T& data, std::size_t index) {
 //  insere no começo
 
 template<typename T>
-void structures::LinkedList<T>::push_front(const T& data) {
+void structures::LinkedList<T>::push_front() {
     insert(data, 0);
 }
 
