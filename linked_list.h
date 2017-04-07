@@ -96,15 +96,6 @@ structures::LinkedList<T>::LinkedList():
     size_{0u}
 {}
 
-template<typename T>
-void structures::LinkedList<T>::delete_contents() {
-    auto current = head;
-    while (current != nullptr) {
-        auto prev = current;
-        current = current -> next();
-        delete prev;
-    }
-}
 
 //  destrutor
 
@@ -159,7 +150,10 @@ template<typename T>
 void structures::LinkedList<T>::insert(const T& data, std::size_t index) {
     if (index < 0)
         throw std::out_of_range("Índice inválido");
-
+        
+    if (index == 0)
+        return push_front(data);
+        
     std::size_t i = 0;
     Node* atual = head;
     while (i < index - 1) {
@@ -186,10 +180,10 @@ void structures::LinkedList<T>::insert_sorted(const T& data) {
         push_front(data);
 
     std::size_t i = 0;
-    Node* atual = head;
-    while (atual -> next() != nullptr && atual -> data() < data) {
+    Node* current = head;
+    while (i < size_ && current->data() < data) {
         i++;
-        atual = atual -> next();
+        current = current->next();
     }
    insert(data, i);
 }
@@ -198,40 +192,44 @@ void structures::LinkedList<T>::insert_sorted(const T& data) {
 
 template<typename T>
 T& structures::LinkedList<T>::at(std::size_t index) {
-    if (index < 0 || index > size_)
+    Node* current = head;
+    if (index > size_ - 1)
         throw std::out_of_range("Índice inválido!");
     if (empty())
         throw std::out_of_range("Lista vazia!");
-
+    if (index == 0)
+        return current->data();
     std::size_t i = 0;
-    Node* atual = head;
     while (i < index) {
         i++;
-        atual = atual -> next();
+        current = current->next();
     }
-   return atual -> data();
+return current->data();
 }
 
 //  retira um elemento no indice
 
 template<typename T>
 T structures::LinkedList<T>::pop(std::size_t index) {
-    if (index < 0 || index > size_)
+    if (index > size_)
         throw std::out_of_range("Índice inválido!");
     if (empty())
         throw std::out_of_range("Lista vazia!");
 
     std::size_t i = 0;
-    Node* atual = head;
+    Node* anterior = head;
+    Node* atual;
     T retorno;
-    while (i < index) {
+    while (i < index - 1) {
         i++;
-        atual = atual -> next();
+        anterior = anterior->next();
     }
-    retorno = atual -> data();
+    atual = anterior->next();
+    retorno = atual->data();
+    anterior->next(atual->next());
     delete(atual);
     size_--;
-    return retorno;
+return retorno;
 }
 
 //  retira o ultimo elemento
@@ -245,23 +243,21 @@ T structures::LinkedList<T>::pop_back() {
 
 template<typename T>
 T structures::LinkedList<T>::pop_front() {
-    return pop(0);
+    Node* anterior = head;
+    T out_ = anterior->data();
+    head = anterior->next();
+    delete(anterior);
+    size_--;
+    return out_;
 }
 
 // remove um item específico
 
 template<typename T>
 void structures::LinkedList<T>::remove(const T& data) {
-    if (!contains(data))
-        throw std::out_of_range("Elemento inexistente.");
-
-    std::size_t i = 0;
-    Node* atual = head;
-    while (atual->data() != data) {
-        i++;
-        atual = atual -> next();
-    }
-    delete(atual);
+    std::size_t test = find(data);
+    if (test != size())
+        pop(test);
 }
 
 //  verifica se a contém um dado específico
