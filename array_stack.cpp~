@@ -1,0 +1,52 @@
+//  Copyright 2017 Letícia do Nascimento
+ 
+#ifndef STRUCTURES_ARRAY_STACK_H
+#define STRUCTURES_ARRAY_STACK_H
+     
+     #include <cstdint>  // std::size_t
+     #include <stdexcept>  // C++ exceptions
+     
+     namespace structures {
+    
+    /**
+     * @brief      Implementação de uma Estrutura de Dados do tipo Pilha
+     *			   (Last In First Out ou LIFO) - Organização dos elementos onde
+     *			   o último a ser inserido é o primeiro a ser retirado.
+     *
+     * @tparam     T     Parâmetro genérico de Template
+     */
+    
+    template<typename T>
+   class ArrayStack {
+    public:
+        ArrayStack();
+   
+       explicit ArrayStack(std::size_t max);
+    
+        ~ArrayStack();
+    
+        void push(const T& data);  // empilha
+  
+       T pop();  // desempilha
+    
+        T& top();
+    
+        void clear();  // limpa
+    
+        std::size_t size();  // tamanho
+    
+        std::size_t max_size();
+    
+        bool empty();  // vazia
+   
+        bool full();  // cheia
+    
+     private:
+        T* contents;
+        int top_;
+        std::size_t max_size_;
+    
+        static const auto DEFAULT_SIZE = 10u;
+    };
+   
+ }   // namespace structures
