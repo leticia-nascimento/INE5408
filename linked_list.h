@@ -1,11 +1,10 @@
-//  Copyright 2017 Letícia do Nascimento  
+//  Copyright 2017 Letícia do Nascimento
 
 #ifndef STRUCTURES_LINKED_LIST_H
 #define STRUCTURES_LINKED_LIST_H
 
 #include <cstdint>
 #include <stdexcept>  // C++ exception
-
 
 namespace structures {
 
@@ -19,33 +18,33 @@ namespace structures {
 template<typename T>
 class LinkedList {
  public:
-    LinkedList();  // construtor padrão
-    ~LinkedList();  // destrutor
-    void clear();  // limpar lista
-    void push_back(const T& data);  // inserir no fim
-    void push_front(const T& data);  // inserir no início
-    void insert(const T& data, std::size_t index);   // inserir na posição
-    void insert_sorted(const T& data);  // inserir em ordem
-    T& at(std::size_t index);  // acessar um elemento na posição index
-    T pop(std::size_t index);  // retirar da posição
-    T pop_back();  // retirar do fim
-    T pop_front();  // retirar do início
-    void remove(const T& data);  // remover específico
-    bool empty() const;  // lista vazia
-    bool contains(const T& data) const;  // contém
-    std::size_t find(const T& data) const;  // posição do dado
-    std::size_t size() const;  // tamanho da lista
+    LinkedList();
+    ~LinkedList();
+    void clear();
+    void push_back(const T& data);
+    void push_front(const T& data);
+    void insert(const T& data, std::size_t index);
+    void insert_sorted(const T& data);
+    T& at(std::size_t index);
+    T pop(std::size_t index);
+    T pop_back();
+    T pop_front();
+    void remove(const T& data);
+    bool empty() const;
+    bool contains(const T& data) const;
+    std::size_t find(const T& data) const;
+    std::size_t size() const;
 
  private:
-    class Node {  // Elemento
+    class Node {
      public:
-        explicit Node(const T& data) : data_{data}{}
-        Node(const T& data, Node* next) : data_{data},next_{next}{}
-        T& data() { return data_; }  // getter: dado
-        const T& data() const { return data_; }  // getter const: dado
-        Node* next() { return next_; }  // getter: próximo
-        const Node* next() const { return next_; }  // getter const: próximo 
-        void next(Node* node) { next_ = node; }  // setter: próximo
+        explicit Node(const T& data) : data_{data} { }
+        Node(const T& data, Node* next) : data_{data}, next_{next} { }
+        T& data() { return data_; }
+        const T& data() const { return data_; }
+        Node* next() { return next_; }
+        const Node* next() const { return next_; }
+        void next(Node* node) { next_ = node; }
 
      private:
         T data_;
@@ -55,7 +54,7 @@ class LinkedList {
     // último nodo da lista
     Node* end() {
         auto it = head;
-        for (auto i = 1u; i < size(); ++i) {
+        for (auto i = 1u; i < size_; ++i) {
             it = it->next();
         }
         return it;
@@ -65,68 +64,80 @@ class LinkedList {
     std::size_t size_{0u};
 };
 
-// Construtor
+/**
+ *   Construtor padrão da classe LinkedList.
+ */
 template <typename T>
 LinkedList<T>::LinkedList() {
     head = nullptr;
     size_ = 0;
 }
 
-// Destrutor
+/**
+ *   Destrutor padrão da classe LinkedList.
+ */
 template<typename T>
 LinkedList<T>::~LinkedList() {
     clear();
 }
 
-//  limpa lista
+/**
+ *   Faz uma limpeza da lista encadeada LinkedList.
+ */
 template<typename T>
 void LinkedList<T>::clear() {
-    while(!empty()) {
+    while (!empty()) {
         pop_front();
     }
 }
 
-//  verifica se a lista está vazia
+/**
+ *   Verifica se a lista encadeada (LinkedList) está vazia.
+ */
 template<typename T>
 bool LinkedList<T>::empty() const {
     return size_ == 0;
 }
 
-//  retorna o tamanho da lista
+/**
+ *   Verifica e retorna o tamanho da lista encadeada (LinkedList).
+ */
 template<typename T>
 std::size_t LinkedList<T>::size() const {
     return size_;
 }
 
-//  inserir no fim
+/**
+ *   Inserir novo elemento do fim da lista encadeada (LinkedList).
+ */
 template<typename T>
 void LinkedList<T>::push_back(const T& data) {
     insert(data, size_);
 }
 
-// insere numa posição específica
+/**
+ *   Inserir novo elemento no índice específico da lista encadeada (LinkedList).
+ */
 template<typename T>
 void LinkedList<T>::insert(const T& data, std::size_t index) {
-    if (index < 0 || index > size())
+    Node* novo = new Node(data);
+    Node* atual = head;
+    if (index < 0 || index > size_)
         throw std::out_of_range("Índice inválido");
-        
     if (index == 0)
         return push_front(data);
-    
-    Node* novo = new Node(data);
     if (novo == nullptr)
         throw std::out_of_range("Lista cheia.");
-    
-    Node* atual = head;
-    for (int i = 0; i < index - 1; i++) {
+    for (int i = 0; i < index - 1; i++)
       atual = atual->next();
-    }
     novo->next(atual->next());
     atual->next(novo);
     size_++;
 }
 
-//  insere no começo
+/**
+ * Inserir novo elemento no começo da lista encadeada (LinkedList).
+ */
 template<typename T>
 void LinkedList<T>::push_front(const T& data) {
     Node* first_node = new Node(data);
@@ -138,10 +149,12 @@ void LinkedList<T>::push_front(const T& data) {
     size_++;
 }
 
-//  insere em ordem
+/**
+ *   Insere novo elemento na ordem definida pela lista encadeada (LinkedList).
+ */
 template<typename T>
 void LinkedList<T>::insert_sorted(const T& data) {
-    if (empty()){
+    if (empty()) {
         push_front(data);
     } else {
         std::size_t i = 0;
@@ -153,23 +166,27 @@ void LinkedList<T>::insert_sorted(const T& data) {
     }
 }
 
-//  acessar um elemento pelo índice
+/**
+ *   Retorna um elemento da lista encadeada que está em uma posição específica (LinkedList).
+ */
 template<typename T>
 T& LinkedList<T>::at(std::size_t index) {
-    Node* current = head;
     if (index > size_ - 1)
         throw std::out_of_range("Índice inválido!");
-    
+
+    Node* current = head;
     if (index == 0)
         return current->data();
-    
-    for (int i = 0; i < index; i++) {
+
+    for (int i = 0; i < index; i++)
       current = current->next();
-    }
+
     return current->data();
 }
 
-//  retira um elemento no indice
+/**
+ *   Remove um elemento da lista encadeada (LinkedList).
+ */
 template<typename T>
 T LinkedList<T>::pop(std::size_t index) {
     if (empty())
@@ -178,7 +195,7 @@ T LinkedList<T>::pop(std::size_t index) {
     if (index > (size_ - 1))
         throw std::out_of_range("Índice inválido!");
 
-    if (index == 0) 
+    if (index == 0)
         return pop_front();
 
     std::size_t i = 0;
@@ -194,13 +211,17 @@ T LinkedList<T>::pop(std::size_t index) {
     return retorno;
 }
 
-//  retira o ultimo elemento
+/**
+ *   Remove o último elemento da lista encadeada (LinkedList).
+ */
 template<typename T>
 T LinkedList<T>::pop_back() {
-    return pop(size() - 1);
+    return pop(size_ - 1);
 }
 
-//  retira o primeiro elemento
+/**
+ *   Remove o primeiro elemento da lista encadeada (LinkedList).
+ */
 template<typename T>
 T LinkedList<T>::pop_front() {
     if (empty()) {
@@ -214,7 +235,9 @@ T LinkedList<T>::pop_front() {
     return out_;
 }
 
-// remove um item específico
+/**
+ *   Remove um item específico da lista encadeada (LinkedList).
+ */
 template<typename T>
 void LinkedList<T>::remove(const T& data) {
     std::size_t test = find(data);
@@ -222,7 +245,9 @@ void LinkedList<T>::remove(const T& data) {
         pop(test);
 }
 
-//  verifica se a contém um dado específico
+/**
+ *   Verifica se a lista encadeada (LinkedList) possui um elemento específico de acordo com o elemento fornecido.
+ */ 
 template<typename T>
 bool LinkedList<T>::contains(const T& data) const {
     if (find(data) != size_)
@@ -231,7 +256,9 @@ bool LinkedList<T>::contains(const T& data) const {
     // return find(data) != size_;
 }
 
-//  retorna a posição de um dado específico
+/**
+ *   Retorna o índice de um elemento éspecífico na lista encadeada (LinkedList).
+ */
 template<typename T>
 std::size_t LinkedList<T>::find(const T& data) const {
     std::size_t i;
@@ -248,6 +275,5 @@ std::size_t LinkedList<T>::find(const T& data) const {
     }
     return index;
 }
-
-}  // namespace
+}  // namespace structures
 #endif
