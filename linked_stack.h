@@ -81,7 +81,7 @@ void LinkedStack<T>::clear() {
 }
 
 /**
- *   Verifica se a lista encadeada (LinkedStack) está vazia.
+ *   Verifica se a pilha encadeada (LinkedStack) está vazia.
  */
 template<typename T>
 bool LinkedStack<T>::empty() const {
