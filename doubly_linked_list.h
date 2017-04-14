@@ -245,7 +245,7 @@ T DoublyLinkedList<T>::pop(std::size_t index) {
  */
 template<typename T>
 T DoublyLinkedList<T>::pop_back() {
-    return pop(size_ - 1);
+    return pop(size_);
 }
 
 /**
