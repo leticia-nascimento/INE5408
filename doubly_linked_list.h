@@ -118,7 +118,7 @@ std::size_t DoublyLinkedList<T>::size() const {
  */
 template<typename T>
 void DoublyLinkedList<T>::push_back(const T& data) {
-    insert(data, size_ - 1);
+    insert(data, size_);
 }
 
 /**
@@ -126,27 +126,26 @@ void DoublyLinkedList<T>::push_back(const T& data) {
  */
 template<typename T>
 void DoublyLinkedList<T>::insert(const T& data, std::size_t index) {
-    Node* new_ = new Node(data);
+    if (index < 0 || index > size_) {
+        throw std::out_of_range("Índice inválido");
+    }
+
+    if (index == 0) {
+        return push_front(data);
+    }
+
     Node* current = head;
 
-    if (index < 0 || index > size_)
-        throw std::out_of_range("Índice inválido");
-
-    if (index == 0)
-        return push_front(data);
-
-    if (new_ == nullptr)
-        throw std::out_of_range("Lista cheia.");
-
-    for (int i = 0; i < index - 1; i++)
+    for (int i = 0; i < index - 1; i++) {
         current = current->next();
-        new_->next()->prev(new_);
+    }
 
-      //  current->next(current->next());
-      //  current->next(new_);
+    Node* new_ = new Node(data, current, current->next());
+    current->next(new_);
 
-    if (new_->next() != nullptr)
+    if (new_->next()) {
         new_->next()->prev(new_);
+    }
 
     size_++;
 }
@@ -157,15 +156,13 @@ void DoublyLinkedList<T>::insert(const T& data, std::size_t index) {
 template<typename T>
 void DoublyLinkedList<T>::push_front(const T& data) {
     Node* first_node = new Node(data);
-    if (first_node == nullptr)
-        throw std::out_of_range("Lista está cheia.");
-
     first_node->next(head);
     first_node->prev(nullptr);
     head = first_node;
 
-    if (first_node->next() != nullptr)
+    if (first_node->next()) {
         first_node->next()->prev(first_node);
+    }
 
     size_++;
 }
@@ -194,10 +191,11 @@ void DoublyLinkedList<T>::insert_sorted(const T& data) {
  */
 template<typename T>
 T& DoublyLinkedList<T>::at(std::size_t index) {
-    if (index > size_ - 1)
+    if (index < 0 || index > size_ - 1)
         throw std::out_of_range("Índice inválido!");
 
     Node* current = head;
+
     if (index == 0)
         return current->data();
 
@@ -215,7 +213,7 @@ T DoublyLinkedList<T>::pop(std::size_t index) {
     if (empty())
         throw std::out_of_range("Lista vazia!");
 
-    if (index > (size_ - 1))
+    if (index < 0 || index > (size_ - 1))
         throw std::out_of_range("Índice inválido!");
 
     if (index == 0)
@@ -232,8 +230,9 @@ T DoublyLinkedList<T>::pop(std::size_t index) {
     T return_ = current->data();
     previous->next(current->next());
 
-    if (current->next() != nullptr)
+    if (current->next()) {
         current->next()->prev(previous);
+    }
 
     size_--;
     delete current;
@@ -245,7 +244,7 @@ T DoublyLinkedList<T>::pop(std::size_t index) {
  */
 template<typename T>
 T DoublyLinkedList<T>::pop_back() {
-    return pop(size_);
+    return pop(size_ - 1);
 }
 
 /**
