@@ -118,7 +118,7 @@ std::size_t DoublyLinkedList<T>::size() const {
  */
 template<typename T>
 void DoublyLinkedList<T>::push_back(const T& data) {
-    insert(data, size_);
+    insert(data, size_ - 1);
 }
 
 /**
