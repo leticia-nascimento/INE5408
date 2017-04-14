@@ -142,8 +142,8 @@ void DoublyLinkedList<T>::insert(const T& data, std::size_t index) {
         current = current->next();
         new_->next()->prev(new_);
 
-    //current->next(current->next());
-    //current->next(new_);
+      //  current->next(current->next());
+      //  current->next(new_);
 
     if (new_->next() != nullptr)
         new_->next()->prev(new_);
@@ -171,7 +171,8 @@ void DoublyLinkedList<T>::push_front(const T& data) {
 }
 
 /**
- *   Insere novo elemento na ordem definida pela lista encadeada (DoublyLinkedList).
+ *   Insere novo elemento na ordem definida pela lista encadeada
+ * (DoublyLinkedList).
  */
 template<typename T>
 void DoublyLinkedList<T>::insert_sorted(const T& data) {
@@ -188,7 +189,8 @@ void DoublyLinkedList<T>::insert_sorted(const T& data) {
 }
 
 /**
- *   Retorna um elemento da lista encadeada que está em uma posição específica (DoublyLinkedList).
+ *   Retorna um elemento da lista encadeada que está em uma posição específica
+ * (DoublyLinkedList).
  */
 template<typename T>
 T& DoublyLinkedList<T>::at(std::size_t index) {
@@ -277,7 +279,8 @@ void DoublyLinkedList<T>::remove(const T& data) {
 }
 
 /**
- *   Verifica se a lista encadeada (DoublyLinkedList) possui um elemento específico de acordo com o elemento fornecido.
+ *   Verifica se a lista encadeada (DoublyLinkedList) possui um elemento
+ * específico de acordo com o elemento fornecido.
  */ 
 template<typename T>
 bool DoublyLinkedList<T>::contains(const T& data) const {
@@ -287,7 +290,8 @@ bool DoublyLinkedList<T>::contains(const T& data) const {
 }
 
 /**
- *   Retorna o índice de um elemento específico na lista encadeada (DoublyLinkedList).
+ *   Retorna o índice de um elemento específico na lista encadeada
+ * (DoublyLinkedList).
  */
 template<typename T>
 std::size_t DoublyLinkedList<T>::find(const T& data) const {
@@ -307,7 +311,8 @@ std::size_t DoublyLinkedList<T>::find(const T& data) const {
 }
 
  /** 
- *  Retorna um elemento específico na lista encadeada sem checagens (DoublyLinkedList).
+ *  Retorna um elemento específico na lista encadeada sem checagens
+ * (DoublyLinkedList).
  */
 template<typename T>
 const T& DoublyLinkedList<T>::at(std::size_t index) const {
@@ -323,4 +328,3 @@ const T& DoublyLinkedList<T>::at(std::size_t index) const {
 }
 
 }  // namespace structures
-
